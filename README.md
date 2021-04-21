@@ -21,8 +21,8 @@
 ```
 
 
-### Full - Stack Devlopment
-#### P.S. | Now no CRUD Method has only REST full API Show from Databse
+### - Full - Stack Devlopment
+#### - P.S. | Now no CRUD Method has only REST full API Show from Databse
 
 
 
