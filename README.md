@@ -22,7 +22,7 @@
 
 
 ### - Full - Stack Devlopment
-#### - P.S. | Now no CRUD Method has only REST full API Show from Databse
+#### - P.S. | Right now ! , there is no CRUD method, just the RESTFull API Show data from the database.
 
 
 
