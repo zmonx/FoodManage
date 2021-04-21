@@ -1,0 +1,108 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:food_mange/src/home/components/itemCard.dart';
+import 'package:food_mange/src/home/components/search_box.dart';
+import 'package:food_mange/src/home/home-screen.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:food_mange/constants.dart';
+import 'package:http/http.dart' as http;
+import 'dart:async';
+import 'dart:convert';
+
+class Food extends StatefulWidget {
+  @override
+  _FoodState createState() => _FoodState();
+}
+
+class _FoodState extends State<Food> {
+  @override
+  Map data;
+  List foodData;
+  getProducts() async {
+    http.Response response = await http.get('http://192.168.1.2:8000/cat3');
+    // debugPrint(response.body);
+    data = json.decode(response.body);
+    // debugPrint('test');
+
+    setState(() {
+      foodData = data['products'];
+      print("Lenght :");
+      print(foodData.length);
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getProducts();
+  }
+
+  Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+
+    return Scaffold(
+        backgroundColor: kBackgroundColor,
+        body: Stack(children: <Widget>[
+          Container(
+            height: size.height * .19,
+            decoration: BoxDecoration(
+              color: Colors.green[600],
+            ),
+          ),
+          SafeArea(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Align(
+                  alignment: Alignment.topRight,
+                  child: Container(
+                    margin: EdgeInsets.only(top: 20, right: 10),
+                    alignment: Alignment.center,
+                  ),
+                ),
+                Center(
+                  child: Container(
+                    padding: EdgeInsets.all(20),
+                    child: Text("อาหารหลัก",
+                        style: Theme.of(context)
+                            .textTheme
+                            .display1
+                            .merge(GoogleFonts.kanit())
+                            .copyWith(
+                              color: Colors.white,
+                            )),
+                  ),
+                ),
+                SearchBox(),
+                Expanded(
+
+
+                  
+                  child: ListView.builder(
+                    itemCount: foodData == null ? 0 : foodData.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return GridView.count(
+                        crossAxisCount: 2,
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        physics: ScrollPhysics(),
+                        childAspectRatio: .80,
+                        crossAxisSpacing: 20,
+                        mainAxisSpacing: 20,
+                        children: <Widget>[
+                          ItemCard2(
+                            title: "${foodData[index]["product_nanme"]}",
+                            svgSrc: "${foodData[index]["img"]}",
+                            press: () {},
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+          )
+        ]));
+  }
+}
