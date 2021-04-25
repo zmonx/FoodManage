@@ -15,6 +15,9 @@ router.get('/category7', productsController.getAllCate7);
 router.get('/category8', productsController.getAllCate8);
 router.get('/products', productsController.getAllProducts);
 
+
+
+
 router.get ('/testq',(req , res) => {
     res.json("dsf sdfgysdgfhdsgfhdsgfhsdghfgdsyufgdhh fhudfgsdhjbhuiy");
 });

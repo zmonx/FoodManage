@@ -1,19 +1,16 @@
 // const { validationResult } = require('express-validator')
-
 const mongodb = require('mongodb');
 // const Product = require('../models/products');
 const Product = require('.././src/models/products');
 
 const ObjectId = mongodb.ObjectId;
 
-
-
 exports.getAllProducts = (req, res) => {
     Product.fetchAll()
         .then(products => {
             res.json({'products':products})
 });
-}
+} 
 exports.getAllCate1 = (req, res) => {
     Product.fetchAllByCate1()
         .then(products => {

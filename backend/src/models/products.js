@@ -5,7 +5,7 @@ class Products {
     constructor(product_name, price, id) {
         this.product_name = product_name;
         this.price = price;
-        this._id = id;
+        this._id = id; 
     }
 
     static fetchAllByCate1() {
