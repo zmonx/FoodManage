@@ -9,6 +9,8 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
 
+import 'detail.dart';
+
 class Candy extends StatefulWidget {
   @override
   _CandyState createState() => _CandyState();
@@ -18,8 +20,13 @@ class _CandyState extends State<Candy> {
   @override
   Map data;
   List CandyData;
+  String name;
+  String price;
+  String detail;
+  String img;
   getProducts() async {
-    http.Response response = await http.get('http://192.168.1.2:8000/category7');
+    http.Response response =
+        await http.get('http://192.168.1.2:8000/category7');
     // debugPrint(response.body);
     data = json.decode(response.body);
     // debugPrint('test');
@@ -87,7 +94,21 @@ class _CandyState extends State<Candy> {
                         return ItemCard2(
                           title: "${CandyData[index]["product_name"]}",
                           svgSrc: "${CandyData[index]["img"]}",
-                          press: () {},
+                          press: () {
+                            setState(() {
+                              name = "${CandyData[index]["product_name"]}";
+                              price = "${CandyData[index]["price"]}";
+                              detail = "${CandyData[index]["detail"]}";
+                              img = "${CandyData[index]["img"]}";
+                            });
+                            // testapi(id);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      Details(name, price, detail, img)),
+                            );
+                          },
                         );
                       }),
                 ),

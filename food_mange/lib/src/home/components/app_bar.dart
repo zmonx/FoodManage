@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:food_mange/src/home/pages/detail.dart';
 
 import '../../../constants.dart';
 
@@ -35,7 +36,12 @@ AppBar homeAppBar(BuildContext context) {
     actions: <Widget>[
       IconButton(
         icon: SvgPicture.asset("assets/icons/notification.svg"),
-        onPressed: () {},
+        onPressed: () {
+          // Navigator.push(
+          //       context,
+          //       MaterialPageRoute(builder: (context) => Details()),
+          //     );
+        },
       )
     ],
   );

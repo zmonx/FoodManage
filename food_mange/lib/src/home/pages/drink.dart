@@ -9,6 +9,8 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
 
+import 'detail.dart';
+
 class Drink extends StatefulWidget {
   @override
   _DrinkState createState() => _DrinkState();
@@ -18,18 +20,36 @@ class _DrinkState extends State<Drink> {
   @override
   Map data;
   List DrinkData;
+  String name;
+  String price;
+  String detail;
+  String img;
+
   getProducts() async {
-    http.Response response = await http.get('http://192.168.1.2:8000/category3');
+    http.Response response =
+        await http.get('http://192.168.1.2:8000/category3');
     // debugPrint(response.body);
     data = json.decode(response.body);
     // debugPrint('test');
 
     setState(() {
       DrinkData = data['products'];
-      print("Lenght :");
-      print(DrinkData.length);
+      // print("Lenght :");
+      // print(DrinkData.length);
     });
   }
+
+  // Future<http.Response> testapi(var id) async {
+  //   final http.Response response = await http.post(
+  //     Uri.parse('http://192.168.1.2:8000/testapi/$id'),
+  //     headers: <var, var>{
+  //       'Content-Type': 'application/json; charset=UTF-8',
+  //     },
+  //     body: jsonEncode({
+  //       "objectid": id,
+  //     }),
+  //   );
+  // }
 
   @override
   void initState() {
@@ -87,7 +107,21 @@ class _DrinkState extends State<Drink> {
                         return ItemCard2(
                           title: "${DrinkData[index]["product_name"]}",
                           svgSrc: "${DrinkData[index]["img"]}",
-                          press: () {},
+                          press: () {
+                            setState(() {
+                              name = "${DrinkData[index]["product_name"]}";
+                              price = "${DrinkData[index]["price"]}";
+                              detail = "${DrinkData[index]["detail"]}";
+                              img = "${DrinkData[index]["img"]}";
+                            });
+                            // testapi(id);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      Details(name, price, detail, img)),
+                            );
+                          },
                         );
                       }),
                 ),

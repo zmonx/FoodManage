@@ -9,6 +9,8 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
 
+import 'detail.dart';
+
 class Ice extends StatefulWidget {
   @override
   _IceState createState() => _IceState();
@@ -18,8 +20,13 @@ class _IceState extends State<Ice> {
   @override
   Map data;
   List IceData;
+  String name;
+  String price;
+  String detail;
+  String img;
   getProducts() async {
-    http.Response response = await http.get('http://192.168.1.2:8000/category8');
+    http.Response response =
+        await http.get('http://192.168.1.2:8000/category8');
     // debugPrint(response.body);
     data = json.decode(response.body);
     // debugPrint('test');
@@ -87,7 +94,21 @@ class _IceState extends State<Ice> {
                         return ItemCard2(
                           title: "${IceData[index]["product_name"]}",
                           svgSrc: "${IceData[index]["img"]}",
-                          press: () {},
+                          press: () {
+                            setState(() {
+                              name = "${IceData[index]["product_name"]}";
+                              price = "${IceData[index]["price"]}";
+                              detail = "${IceData[index]["detail"]}";
+                              img = "${IceData[index]["img"]}";
+                            });
+                            // testapi(id);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      Details(name, price, detail, img)),
+                            );
+                          },
                         );
                       }),
                 ),

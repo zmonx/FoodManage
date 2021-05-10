@@ -9,6 +9,8 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
 
+import 'detail.dart';
+
 class Food extends StatefulWidget {
   @override
   _FoodState createState() => _FoodState();
@@ -18,6 +20,10 @@ class _FoodState extends State<Food> {
   @override
   Map data;
   List foodData;
+  String name;
+  String price;
+  String detail;
+  String img;
   getProducts() async {
     http.Response response =
         await http.get('http://192.168.1.2:8000/category5');
@@ -91,7 +97,21 @@ class _FoodState extends State<Food> {
                           return ItemCard2(
                             title: "${foodData[index]["product_name"]}",
                             svgSrc: "${foodData[index]["img"]}",
-                            press: () {},
+                            press: () {
+                              setState(() {
+                                name = "${foodData[index]["product_name"]}";
+                                price = "${foodData[index]["price"]}";
+                                detail = "${foodData[index]["detail"]}";
+                                img = "${foodData[index]["img"]}";
+                              });
+                              // testapi(id);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        Details(name, price, detail, img)),
+                              );
+                            },
                           );
                       }),
                 ),
