@@ -6,6 +6,7 @@ const router = express.Router();
 const productsController = require('../../controllers/products');
 
 router.get('/category1', productsController.getAllCate1);
+
 router.get('/category2', productsController.getAllCate2);
 router.get('/category3', productsController.getAllCate3);
 router.get('/category4', productsController.getAllCate4);
@@ -14,6 +15,8 @@ router.get('/category6', productsController.getAllCate6);
 router.get('/category7', productsController.getAllCate7);
 router.get('/category8', productsController.getAllCate8);
 router.get('/products', productsController.getAllProducts);
+router.get('/details/:product_id',productsController.getByname);
+
 
 
 

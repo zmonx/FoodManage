@@ -5,30 +5,41 @@ const Product = require('.././src/models/products');
 
 const ObjectId = mongodb.ObjectId;
 
-exports.getAllProducts = (req, res) => {
-    Product.fetchAll()
-        .then(products => {
-            res.json({'products':products})
-});
-} 
+
+exports.getByname = (req, res) => {
+    const { product_id } = req.params;
+    Product.fetchAllByID(product_id)
+      .then(products => {
+        res.json({'products':products})
+    });
+}
+
+
+
+
 exports.getAllCate1 = (req, res) => {
     Product.fetchAllByCate1()
         .then(products => {
             res.json({'products':products})
 });
 }
+
+
+
 exports.getAllCate2 = (req, res) => {
     Product.fetchAllByCate2()
         .then(products => {
             res.json({'products':products})
 });
 }
+
 exports.getAllCate3 = (req, res) => {
     Product.fetchAllByCate3()
         .then(products => {
             res.json({'products':products})
 });
 }
+
 exports.getAllCate4 = (req, res) => {
     Product.fetchAllByCate4()
         .then(products => {
@@ -60,7 +71,12 @@ exports.getAllCate8 = (req, res) => {
 });
 }
 
-
+exports.getAllProducts = (req, res) => {
+    Product.fetchAll()
+        .then(products => {
+            res.json({'products':products})
+});
+}
 
 // exports.getSearchProduct = (req, res, next) => {
 
